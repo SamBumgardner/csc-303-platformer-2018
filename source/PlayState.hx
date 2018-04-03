@@ -2,16 +2,35 @@ package;
 
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.util.FlxColor;
+import flixel.text.FlxText;
 import flixel.math.FlxRandom;
 
 
 class PlayState extends FlxState
 {
+	
+	private var hero:Hero;
+	
 	override public function create():Void
 	{
 		super.create();
 		
+		var text = new flixel.text.FlxText(0, 0, 0, "Hello World", 64);
+		text.screenCenter();
+		add(text);
+		
+		var RNG:FlxRandom = new FlxRandom();
+		var randX:Float = RNG.float(0, 640);
+		var randY:Float = RNG.float(0, 480);
+		var count = 0;
+		
+		while (count <= 5){
+			hero = new Hero(randX, randY);
+			add(hero);
+			count++;
+		}
+		
+	/*	
 		var RNG:FlxRandom = new FlxRandom();
 	
 		var k = 0;
@@ -27,7 +46,7 @@ class PlayState extends FlxState
 		var thing1:FlxSprite = new FlxSprite(30, 30);
 		thing1.makeGraphic(580, 70, FlxColor.CYAN);
 		add(thing1);
-		
+	*/
 	}
 
 	override public function update(elapsed:Float):Void
