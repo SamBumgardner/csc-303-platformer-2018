@@ -20,11 +20,13 @@ class PlayState extends FlxState
 		add(text);
 		
 		var RNG:FlxRandom = new FlxRandom();
-		var randX:Float = RNG.float(0, 640);
-		var randY:Float = RNG.float(0, 480);
+		//var randX:Float = RNG.float(0, 640);
+		//var randY:Float = RNG.float(0, 480);
+		var randX = 320;
+		var randY = 240;
 		var count = 0;
 		
-		while (count <= 5){
+		while (count <= 30){
 			hero = new Hero(randX, randY);
 			add(hero);
 			count++;
