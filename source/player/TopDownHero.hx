@@ -4,6 +4,8 @@ using flixel.FlxG;
 using flixel.util.FlxColor;
 using flixel.math.FlxRandom;
 using flixel.math.FlxMath;
+using flixel.util.FlxCollision;
+using flixel.FlxObject;
 
 /**
  * Hero that moves like a character in a classic, top-down Legend of Zelda game.
@@ -12,10 +14,13 @@ using flixel.math.FlxMath;
 class TopDownHero extends Hero
 {
 	var speed:Float = 200;
+	var acc:Float = 400;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
+		this.maxVelocity.x = speed;
+		this.maxVelocity.y = speed;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -48,18 +53,20 @@ class TopDownHero extends Hero
 		if (!up && !down && !left && !down){
 			this.velocity.x = 0;
 			this.velocity.y = 0;
+			this.acceleration.x = 0;
+			this.acceleration.y = 0;
 		} else if (down && up){
 			this.velocity.y = 0;
 		} else if (left && right){
 			this.velocity.x = 0;
 		} else if (up){
-			this.velocity.y = -speed;
+			this.acceleration.y = acc;
 		} else if (down){
-			this.velocity.y = speed;
+			this.acceleration.y = -acc;
 		} else if (left){
-			this.velocity.x = -speed;
+			this.acceleration.x = acc;
 		} else if (right){
-			this.velocity.x = speed;
+			this.acceleration.x = -acc;
 		}
 	}
 	

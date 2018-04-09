@@ -5,6 +5,8 @@ import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import player.PlatformerHero;
 import player.TopDownHero;
+import flixel.FlxG;
+import flixel.util.FlxCollision;
 
 class PlayState extends FlxState
 {
@@ -52,6 +54,15 @@ class PlayState extends FlxState
 	}
 
 	override public function update(elapsed:Float):Void {
+		groundGroup.forEachAlive(checkCollision());
+		
 		super.update(elapsed);
+	}
+	
+	public function checkCollision(){
+		if (FlxCollision.pixelPerfectCheck(topDownHero, groundGroup.iterator(), 1)){
+			topDownHero.velocity.y = 0;
+			topDownHero.acceleration.y = 0;
+		}
 	}
 }
