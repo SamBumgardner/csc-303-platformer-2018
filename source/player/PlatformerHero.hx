@@ -2,6 +2,7 @@ package player;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.util.FlxColor;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
@@ -10,6 +11,9 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class PlatformerHero extends Hero
 {
+	
+	private var colorPicker = 0;
+	private var colorArray:Array<String> = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE"];
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -29,6 +33,14 @@ class PlatformerHero extends Hero
 		if (FlxG.keys.pressed.Z){
 			this.velocity.y = -500;
 		}
+		
+		if (FlxG.keys.justPressed.SPACE){
+			colorPicker += 1;
+		}
+		if (colorPicker > 5){
+			colorPicker = 0;
+		}
+		this.color = FlxColor.fromString(colorArray[colorPicker]);
 		
 		super.update(elapsed);
 	}
