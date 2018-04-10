@@ -21,17 +21,21 @@ class TopDownHero extends Hero
 	override public function update(elapsed:Float):Void
 	{
 		
-		if (FlxG.keys.anyPressed([UP, W])){
-		this.velocity.y += -5;
+		if (FlxG.keys.pressed.W){
+			this.velocity.y += -5;
 		}
-		else if (FlxG.keys.anyPressed([DOWN, S])){
-		this.velocity.y += 5;
+		else if (FlxG.keys.pressed.S){
+			this.velocity.y += 5;
 		}
-		else if (FlxG.keys.anyPressed([RIGHT, D])){
-		this.velocity.x += 5;
+		else if (FlxG.keys.pressed.D){
+			this.velocity.x += 5;
 		}
-		else if (FlxG.keys.anyPressed([LEFT, A])){
-		this.velocity.x += -5;
+		else if (FlxG.keys.pressed.A){
+			this.velocity.x += -5;
+		}
+		else {
+			this.velocity.x = 0;
+			this.velocity.y = 0;
 		}
 		
 		if (FlxG.keys.justPressed.SPACE){
