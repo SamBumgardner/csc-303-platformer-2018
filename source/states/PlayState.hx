@@ -1,8 +1,11 @@
 package states;
 
 import environment.Ground;
+import environment.Wall;
+import flixel.FlxG;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.util.FlxColor;
 import player.PlatformerHero;
 import player.TopDownHero;
 
@@ -23,6 +26,8 @@ class PlayState extends FlxState
 	private var platformerHero:PlatformerHero;
 	private var groundGroup:FlxTypedGroup<Ground>;
 	
+	var colors:Array<FlxColor> = [0xffff00, 0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xff00ff];
+	
 	override public function create():Void {
 		super.create();
 		instantiateEntities();
@@ -40,6 +45,10 @@ class PlayState extends FlxState
 		for (i in 0...GROUND_TILE_COUNT) {
 			groundGroup.add(new Ground(GROUND_START_X + Ground.LENGTH * i, GROUND_START_Y));
 		}
+		
+		for (c in colors){
+			groundGroup.add(new Wall(Math.random()*640, Math.random()*480,c));
+		}
 	}
 	
 	/**
@@ -53,5 +62,7 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
+		FlxG.collide(platformerHero, groundGroup, platformerHero.HitGround);
+		FlxG.overlap(topDownHero, groundGroup, topDownHero.HitWall);
 	}
 }

@@ -13,9 +13,10 @@ class Ground extends FlxSprite
 	public static var LENGTH(default, never):Int = 32;
 	public static var HEIGHT(default, never):Int = 32;
 
-	public function new(?X:Float=0, ?Y:Float=0) {
+	public function new(?X:Float=0, ?Y:Float=0,?c=FlxColor.GRAY) {
 		super(X, Y);
-		makeGraphic(LENGTH, HEIGHT, FlxColor.GRAY);
+		makeGraphic(LENGTH, HEIGHT, c);
+		this.immovable = true;
 	}
 	
 }
