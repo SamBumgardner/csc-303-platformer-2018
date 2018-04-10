@@ -1,5 +1,5 @@
 package player;
-
+import flixel.util.FlxColor;
 import flixel.FlxG;
 
 /**
@@ -9,24 +9,41 @@ import flixel.FlxG;
 class TopDownHero extends Hero
 {
 
+	private var colorPicker = 0;
+	private var colorArray:Array<String> = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE"];
+	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
+	
 	}
 	
-	override public function update(elapse:Float):Void
+	override public function update(elapsed:Float):Void
 	{
+		
 		if (FlxG.keys.anyPressed([UP, W])){
-		this.y += -1;
+		this.velocity.y += -5;
 		}
-		if (FlxG.keys.anyPressed([DOWN, S])){
-		this.y += 1;
+		else if (FlxG.keys.anyPressed([DOWN, S])){
+		this.velocity.y += 5;
 		}
-		if (FlxG.keys.anyPressed([RIGHT, D])){
-		this.x += 1;
+		else if (FlxG.keys.anyPressed([RIGHT, D])){
+		this.velocity.x += 5;
 		}
-		if (FlxG.keys.anyPressed([LEFT, A])){
-		this.x += -1;
+		else if (FlxG.keys.anyPressed([LEFT, A])){
+		this.velocity.x += -5;
 		}
+		
+		if (FlxG.keys.justPressed.SPACE){
+			colorPicker += 1;
+		}
+		
+		if (colorPicker > 5){
+			colorPicker = 0;
+		}
+		
+		this.color = FlxColor.fromString(colorArray[colorPicker]);
+		 
+		super.update(elapsed);
 	}
 }
