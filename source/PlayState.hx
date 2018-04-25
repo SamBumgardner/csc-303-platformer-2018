@@ -5,6 +5,7 @@ import flixel.text.FlxText;
 
 class PlayState extends FlxState
 {
+	// Text vars
 	private var text:FlxText;
 	private var upDownDir:String = "up";
 	private var leftRightDir:String = "left";
@@ -40,6 +41,10 @@ class PlayState extends FlxState
 		
 
 		// Add multiple hero objects
+		add(new Hero());
+		add(new Hero());
+		add(new Hero());
+		add(new Hero());
 	}
 
 	override public function update(elapsed:Float):Void
