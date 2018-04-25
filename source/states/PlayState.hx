@@ -14,8 +14,8 @@ class PlayState extends FlxState
 	private static var GROUND_START_X(default, never):Float = 128;
 	private static var GROUND_START_Y(default, never):Float = 320;
 	
-	private static var TOP_DOWN_HERO_START_X(default, never):Float = 32;
-	private static var TOP_DOWN_HERO_START_Y(default, never):Float = 32;
+	private static var TOP_DOWN_HERO_START_X(default, never):Float = 100;
+	private static var TOP_DOWN_HERO_START_Y(default, never):Float = 100;
 	
 	private static var PLATFORMER_HERO_START_X(default, never):Float = 300;
 	private static var PLATFORMER_HERO_START_Y(default, never):Float = 200;

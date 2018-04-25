@@ -16,7 +16,12 @@ class TopDownHero extends Hero
 	var speed:Float = 200;
 	var acc:Float = 400;
 	var colorNum:Int = 0;
-	var gravityAcc = 40;
+	var gravityAcc = 100;
+	var jumpAmount = 0;
+	var maxJump = 100;
+	
+	var lungeHeight = 60;
+	var lungeLength = 500;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -46,20 +51,24 @@ class TopDownHero extends Hero
 		var left:Bool = false;
 		var right:Bool = false;
 		
-		up = FlxG.keys.anyPressed([UP, W]);
-		down = FlxG.keys.anyPressed([DOWN, S]);
-		left = FlxG.keys.anyPressed([LEFT, A]);
-		right = FlxG.keys.anyPressed([RIGHT, D]);
+		up = FlxG.keys.pressed.W;
+		down = FlxG.keys.pressed.S;
+		/*left = FlxG.keys.anyPressed([LEFT, A]); // From part 1
+		right = FlxG.keys.anyPressed([RIGHT, D]);*/
+		left = FlxG.keys.pressed.LEFT;
+		right = FlxG.keys.pressed.RIGHT;
 		
-		// If no keys pressed
-		if (!up && !down && !left && !right){
+		
+		if(!isTouching(FlxObject.DOWN)){
+			// Gravity
+			this.acceleration.y = gravityAcc;
+		}
+		
+		
+		
+		if (FlxG.keys.justReleased.LEFT || FlxG.keys.justReleased.RIGHT || (isTouching(FlxObject.DOWN) && !left && !right)){
 			this.velocity.x = 0;
 			this.acceleration.x = 0;
-			
-			if(!isTouching(FlxObject.DOWN)){
-				// Gravity
-				this.acceleration.y = gravityAcc;
-			}
 		} else if (down && up){
 			this.velocity.y = 0;
 		} else if (left && right){
@@ -75,8 +84,31 @@ class TopDownHero extends Hero
 		}
 		
 		// Continue falling after jumping
-		if (FlxG.keys.justReleased.UP){
+		if (FlxG.keys.justReleased.UP || FlxG.keys.justReleased.Z){
 			this.velocity.y = 0;
+			jumpAmount = 0;
+		}
+		
+		// Jump
+		if (FlxG.keys.pressed.Z){
+			if (jumpAmount < maxJump){
+				jumpAmount += 5;
+				this.velocity.y -= jumpAmount; // Move upwards
+			} else if (jumpAmount == maxJump){
+				this.velocity.y = 0; // Stop moving upwards, gravity above
+									 // will take care of the rest
+			}
+		}
+		
+		// Lunge
+		if (isTouching(FlxObject.DOWN)){
+			if (FlxG.keys.justPressed.L){
+				velocity.y -= lungeHeight;
+				velocity.x += lungeLength;
+			} else if (FlxG.keys.justPressed.J){
+				velocity.y -= lungeHeight;
+				velocity.x -= lungeLength;
+			}
 		}
 	}
 	
