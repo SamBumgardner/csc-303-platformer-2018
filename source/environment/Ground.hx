@@ -16,6 +16,7 @@ class Ground extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0) {
 		super(X, Y);
 		makeGraphic(LENGTH, HEIGHT, FlxColor.GRAY);
+		immovable = true;
 	}
 	
 }

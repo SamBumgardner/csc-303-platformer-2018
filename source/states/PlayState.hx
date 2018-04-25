@@ -54,15 +54,8 @@ class PlayState extends FlxState
 	}
 
 	override public function update(elapsed:Float):Void {
-		//groundGroup.forEachAlive(checkCollision());
+		FlxG.collide(topDownHero, groundGroup);
 		
 		super.update(elapsed);
-	}
-	
-	public function checkCollision(){
-		/*if (FlxCollision.pixelPerfectCheck(topDownHero, groundGroup.iterator(), 1)){
-			topDownHero.velocity.y = 0;
-			topDownHero.acceleration.y = 0;
-		} */
 	}
 }

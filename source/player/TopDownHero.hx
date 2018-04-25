@@ -16,6 +16,7 @@ class TopDownHero extends Hero
 	var speed:Float = 200;
 	var acc:Float = 400;
 	var colorNum:Int = 0;
+	var gravityAcc = 40;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -53,9 +54,12 @@ class TopDownHero extends Hero
 		// If no keys pressed
 		if (!up && !down && !left && !right){
 			this.velocity.x = 0;
-			this.velocity.y = 0;
 			this.acceleration.x = 0;
-			this.acceleration.y = 0;
+			
+			if(!isTouching(FlxObject.DOWN)){
+				// Gravity
+				this.acceleration.y = gravityAcc;
+			}
 		} else if (down && up){
 			this.velocity.y = 0;
 		} else if (left && right){
@@ -68,6 +72,11 @@ class TopDownHero extends Hero
 			this.acceleration.x = -acc;
 		} else if (right){
 			this.acceleration.x = acc;
+		}
+		
+		// Continue falling after jumping
+		if (FlxG.keys.justReleased.UP){
+			this.velocity.y = 0;
 		}
 	}
 	
