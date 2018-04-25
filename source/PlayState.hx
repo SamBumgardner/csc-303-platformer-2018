@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
@@ -27,6 +28,10 @@ class PlayState extends FlxState
 							 // text.y = (SCREEN_HEIGHT / 2) - (text.height / 2);
 							 // assuming SCREEN_WIDTH and SCREEN_HEIGHT were vars set somewhere,
 							 // but why reinvent the wheel?
+		
+		text.borderColor = FlxColor.RED;
+		text.borderSize = 5;
+		text.borderStyle = FlxTextBorderStyle.OUTLINE;
 		add(text);
 		
 		// Get text's points while centered
@@ -41,9 +46,6 @@ class PlayState extends FlxState
 		
 
 		// Add multiple hero objects
-		add(new Hero());
-		add(new Hero());
-		add(new Hero());
 		add(new Hero());
 	}
 

@@ -2,6 +2,8 @@ import flixel.FlxSprite;
 import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
+import flixel.FlxG;
+
 class Hero extends FlxSprite
 {
 	var dir:Int;
@@ -26,7 +28,7 @@ class Hero extends FlxSprite
 		}
 		
     }
-
+	
     override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
@@ -77,5 +79,31 @@ class Hero extends FlxSprite
 		
         color = fxColor.setRGB(xRound, yRound, randomThird, 1);
 		
+		checkDirChange();
+		
+	}
+	
+	private function checkDirChange():Void{
+		if (FlxG.keys.justPressed.LEFT){
+			dir = -2;
+			
+			velocity.x = 0;
+			velocity.y = 0;
+		} else if (FlxG.keys.justPressed.RIGHT){
+			dir = 2;
+			
+			velocity.x = 0;
+			velocity.y = 0;
+		} else if (FlxG.keys.justPressed.UP){
+			dir = 1;
+			
+			velocity.x = 0;
+			velocity.y = 0;
+		} else if (FlxG.keys.justPressed.DOWN){
+			dir = -1;
+			
+			velocity.x = 0;
+			velocity.y = 0;
+		}
 	}
 }
