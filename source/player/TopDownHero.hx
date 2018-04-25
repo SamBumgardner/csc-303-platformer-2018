@@ -15,6 +15,7 @@ class TopDownHero extends Hero
 {
 	var speed:Float = 200;
 	var acc:Float = 400;
+	var colorNum:Int = 0;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -28,7 +29,7 @@ class TopDownHero extends Hero
 		movement();
 		
 		var spacePressed = false;
-		spacePressed = FlxG.keys.pressed.SPACE;
+		spacePressed = FlxG.keys.justPressed.SPACE;
 		
 		if (spacePressed){
 			changeColor();
@@ -50,7 +51,7 @@ class TopDownHero extends Hero
 		right = FlxG.keys.anyPressed([RIGHT, D]);
 		
 		// If no keys pressed
-		if (!up && !down && !left && !down){
+		if (!up && !down && !left && !right){
 			this.velocity.x = 0;
 			this.velocity.y = 0;
 			this.acceleration.x = 0;
@@ -60,20 +61,25 @@ class TopDownHero extends Hero
 		} else if (left && right){
 			this.velocity.x = 0;
 		} else if (up){
-			this.acceleration.y = acc;
-		} else if (down){
 			this.acceleration.y = -acc;
+		} else if (down){
+			this.acceleration.y = acc;
 		} else if (left){
-			this.acceleration.x = acc;
-		} else if (right){
 			this.acceleration.x = -acc;
+		} else if (right){
+			this.acceleration.x = acc;
 		}
 	}
 	
 	
 	public function changeColor():Void{
-		var ran:FlxRandom = new FlxRandom();
+		var colors:Array<FlxColor> = [FlxColor.RED, FlxColor.ORANGE, FlxColor.YELLOW, FlxColor.GREEN, FlxColor.BLUE, FlxColor.PURPLE];
+
+		this.color = colors[colorNum];
+		colorNum++;
 		
-		this.color = ran.color();
+		if (colorNum == colors.length){
+			colorNum = 0;
+		}
 	}
 }
