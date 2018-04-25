@@ -8,13 +8,14 @@ class Hero extends FlxSprite
 {
 	var dir:Int;
 	var speed:Int = 200;
+	var size:Int = 50;
 	var random:FlxRandom;
 	
 	public function new(?X:Float=0, ?Y:Float=0):Void
 	{
 		super(X, Y);
 
-        makeGraphic(50, 50, FlxColor.WHITE);
+        makeGraphic(size, size, FlxColor.WHITE);
         
         random = new FlxRandom();
         dir = random.int( -2, 2);
