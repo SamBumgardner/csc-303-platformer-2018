@@ -1,4 +1,6 @@
 package player;
+import environment.Wall;
+import flixel.FlxSprite;
 
 using flixel.FlxG;
 using flixel.util.FlxColor;
@@ -6,6 +8,7 @@ using flixel.math.FlxRandom;
 using flixel.math.FlxMath;
 using flixel.util.FlxCollision;
 using flixel.FlxObject;
+using flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
  * Hero that moves like a character in a classic, top-down Legend of Zelda game.
@@ -63,8 +66,6 @@ class TopDownHero extends Hero
 			// Gravity
 			this.acceleration.y = gravityAcc;
 		}
-		
-		
 		
 		if (FlxG.keys.justReleased.LEFT || FlxG.keys.justReleased.RIGHT || (isTouching(FlxObject.DOWN) && !left && !right)){
 			this.velocity.x = 0;

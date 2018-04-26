@@ -1,12 +1,14 @@
 package states;
 
 import environment.Ground;
+import environment.Wall;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import player.PlatformerHero;
 import player.TopDownHero;
 import flixel.FlxG;
 import flixel.util.FlxCollision;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
@@ -20,10 +22,20 @@ class PlayState extends FlxState
 	private static var PLATFORMER_HERO_START_X(default, never):Float = 300;
 	private static var PLATFORMER_HERO_START_Y(default, never):Float = 200;
 	
+	private static var ORANGE_WALL_TILE_COUNT:Int = 4;
+	private static var ORANGE_WALL_START:Float = 200;
+	private static var GREEN_WALL_TILE_COUNT:Int = 4;
+	private static var GREEN_WALL_START:Float = 300;
+	private static var PURPLE_WALL_TILE_COUNT:Int = 4;
+	private static var PURPLE_WALL_START:Float = 400;
+	
 	
 	private var topDownHero:TopDownHero;
 	private var platformerHero:PlatformerHero;
 	private var groundGroup:FlxTypedGroup<Ground>;
+	private var orangeWallGroup:FlxTypedGroup<Wall>;
+	private var greenWallGroup:FlxTypedGroup<Wall>;
+	private var purpleWallGroup:FlxTypedGroup<Wall>;
 	
 	override public function create():Void {
 		super.create();
@@ -42,6 +54,21 @@ class PlayState extends FlxState
 		for (i in 0...GROUND_TILE_COUNT) {
 			groundGroup.add(new Ground(GROUND_START_X + Ground.LENGTH * i, GROUND_START_Y));
 		}
+		
+		orangeWallGroup = new FlxTypedGroup<Wall>();
+		for (i in 1...ORANGE_WALL_TILE_COUNT) {
+			orangeWallGroup.add(new Wall(ORANGE_WALL_START, GROUND_START_Y - Wall.HEIGHT * i, FlxColor.ORANGE));
+		}
+		
+		greenWallGroup = new FlxTypedGroup<Wall>();
+		for (i in 1...GREEN_WALL_TILE_COUNT) {
+			greenWallGroup.add(new Wall(GREEN_WALL_START, GROUND_START_Y - Wall.HEIGHT * i, FlxColor.GREEN));
+		}
+		
+		purpleWallGroup = new FlxTypedGroup<Wall>();
+		for (i in 1...PURPLE_WALL_TILE_COUNT) {
+			purpleWallGroup.add(new Wall(PURPLE_WALL_START, GROUND_START_Y - Wall.HEIGHT * i, FlxColor.PURPLE));
+		}
 	}
 	
 	/**
@@ -51,11 +78,33 @@ class PlayState extends FlxState
 		add(topDownHero);
 		add(platformerHero);
 		add(groundGroup);
+		add(orangeWallGroup);
+		add(greenWallGroup);
+		add(purpleWallGroup);
 	}
 
 	override public function update(elapsed:Float):Void {
 		FlxG.collide(topDownHero, groundGroup);
 		
+		if (FlxG.overlap(topDownHero, orangeWallGroup)){
+			if (topDownHero.color != FlxColor.ORANGE){
+				FlxG.collide(topDownHero, orangeWallGroup);
+			}
+		}
+		
+		if (FlxG.overlap(topDownHero, greenWallGroup)){
+			if (topDownHero.color != FlxColor.GREEN){
+				FlxG.collide(topDownHero, greenWallGroup);
+			}
+		}
+		
+		if (FlxG.overlap(topDownHero, purpleWallGroup)){
+			if (topDownHero.color != FlxColor.PURPLE){
+				FlxG.collide(topDownHero, purpleWallGroup);
+			}
+		}
+		
 		super.update(elapsed);
 	}
+	
 }
