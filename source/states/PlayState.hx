@@ -5,7 +5,10 @@ import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import haxe.Constraints.FlatEnum;
+import haxe.io.Float32Array;
 import player.Player;
+import source.enemies.zombie.Zombie;
 
 class PlayState extends FlxState
 {
@@ -20,8 +23,13 @@ class PlayState extends FlxState
 	private static var HERO_START_X(default, never):Float = 320;
 	private static var HERO_START_Y(default, never):Float = 256;
 	
+	private static var ZOMBIE_COUNT(default, never):Int = 4;
+	private static var ZOMBIE_START_X(default, never):Array<Float> = [HERO_START_X + 50, HERO_START_X + 100, HERO_START_X + 150, HERO_START_X + 200];
+	private static var ZOMBIE_START_Y(default, never):Array<Float> = [HERO_START_Y, HERO_START_Y, HERO_START_Y, HERO_START_Y];
+	
 	private var player:Player;
 	private var groundGroup:FlxTypedGroup<Ground>;
+	private var zombieGroup:FlxTypedGroup<Zombie>;
 	
 	override public function create():Void {
 		instantiateEntities();
@@ -56,6 +64,10 @@ class PlayState extends FlxState
 	private function addEntities():Void {
 		add(player);
 		add(groundGroup);
+		
+		for (i in 0...ZOMBIE_COUNT){
+			add(new Zombie(ZOMBIE_START_X[i], ZOMBIE_START_Y[i]));
+		}
 	}
 
 	override public function update(elapsed:Float):Void {
