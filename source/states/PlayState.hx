@@ -73,6 +73,8 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 		FlxG.collide(player, groundGroup);
+		FlxG.collide(zombieGroup, groundGroup);
+		FlxG.collide(zombieGroup, player);
 		
 		if (FlxG.keys.justPressed.N) {
 			FlxG.switchState(new ArrayLoadedState());
