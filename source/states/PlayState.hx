@@ -9,12 +9,13 @@ import haxe.Constraints.FlatEnum;
 import haxe.io.Float32Array;
 import player.Player;
 import source.enemies.zombie.Zombie;
+import flixel.FlxObject;
 
 class PlayState extends FlxState
 {
 	private static var GROUND_TILE_COUNT(default, never):Int = 18;
 	private static var GROUND_START_X(default, never):Float = 32;
-	private static var GROUND_START_Y(default, never):Float = 320;
+	public static var GROUND_START_Y(default, never):Float = 320;
 	
 	private static var WALL_TILE_COUNT(default, never):Int = 3;
 	private static var WALL_START_X(default, never):Float = 240;
@@ -25,9 +26,9 @@ class PlayState extends FlxState
 	
 	private static var ZOMBIE_COUNT(default, never):Int = 4;
 	private static var ZOMBIE_START_X(default, never):Array<Float> = [HERO_START_X + 50, HERO_START_X + 100, HERO_START_X + 150, HERO_START_X + 200];
-	private static var ZOMBIE_START_Y(default, never):Array<Float> = [HERO_START_Y, HERO_START_Y, HERO_START_Y, HERO_START_Y];
+	private static var ZOMBIE_START_Y(default, never):Array<Float> = [GROUND_START_Y - (Zombie.HEIGHT / 2), GROUND_START_Y -(Zombie.HEIGHT / 2), GROUND_START_Y - (Zombie.HEIGHT / 2), GROUND_START_Y - (Zombie.HEIGHT / 2)];
 	
-	private var player:Player;
+	public static var player:Player;
 	private var groundGroup:FlxTypedGroup<Ground>;
 	private var zombieGroup:FlxTypedGroup<Zombie>;
 	
@@ -65,8 +66,9 @@ class PlayState extends FlxState
 		add(player);
 		add(groundGroup);
 		
+		// For some reason, it crashes if I try and add zombies the way you have added ground...
 		for (i in 0...ZOMBIE_COUNT){
-			add(new Zombie(ZOMBIE_START_X[i], ZOMBIE_START_Y[i]));
+			add(new Zombie(ZOMBIE_START_X[i], ZOMBIE_START_Y[i], player));
 		}
 	}
 

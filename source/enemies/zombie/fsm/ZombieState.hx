@@ -1,6 +1,6 @@
-package source.enemies.zombie.fsm;
+package enemies.zombie.fsm;
 
-import enemies.zombie.Zombie;
+import source.enemies.zombie.Zombie;
 import enemies.zombie.fsm.State;
 
 /**
@@ -18,7 +18,7 @@ class ZombieState implements State
 		this.zombie = zombie;
 	}
 	
-	public function update():Void {}
+	public function update():Int { return ZombieStates.NO_CHANGE; }
 	
 	public function transitionIn():Void {}
 	

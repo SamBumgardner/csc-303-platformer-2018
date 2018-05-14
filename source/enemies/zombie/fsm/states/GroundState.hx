@@ -2,7 +2,7 @@ package enemies.zombie.fsm.states;
 
 import flixel.FlxObject;
 import enemies.zombie.fsm.ZombieState;
-import enemies.zombie.Zombie;
+import source.enemies.zombie.Zombie;
 
 /**
  * ...
@@ -19,12 +19,12 @@ class GroundState extends ZombieState
 		super(zombie);
 	}
 	
-	override public function update(elapsed:Float):Void
+	override public function update():Int
 	{
-		if (this.zombie.isTouching(FlxObject.DOWN)){
+		if (!this.zombie.isTouching(FlxObject.DOWN)){
 			return ZombieStates.FALL;
 		}
 		
-		return ZombieStates.NO_CHANGE;
+		return ZombieStates.WAIT;
 	}
 }

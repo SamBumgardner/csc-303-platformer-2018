@@ -1,6 +1,11 @@
-package source.enemies.zombie.fsm.states;
+package enemies.zombie.fsm.states;
 
 import enemies.zombie.fsm.ZombieState;
+import source.enemies.zombie.Zombie;
+import flixel.util.FlxPath;
+import states.PlayState;
+import flixel.math.FlxPoint;
+import flixel.math.FlxMath;
 
 /**
  * ...
@@ -11,9 +16,25 @@ import enemies.zombie.fsm.ZombieState;
 class ChaseState extends ZombieState
 {
 
-	public function new() 
+	public function new(zombie:Zombie) 
 	{
+		super(zombie);
+	}
+	
+	override public function update():Int 
+	{
+		zombie.setChasePath();
 		
+		if (!zombie.path.active){
+			zombie.path.start();	
+		}
+		
+		if (!zombie.isChasingDistanceFromPlayer()){
+			zombie.setWaitPath();
+			return 0; //ZombieStates.Wait;
+		}
+		
+		return 1;//ZombieStates.CHASE;
 	}
 	
 }
