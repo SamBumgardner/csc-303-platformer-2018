@@ -8,7 +8,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import haxe.Constraints.FlatEnum;
 import haxe.io.Float32Array;
 import player.Player;
-import source.enemies.zombie.Zombie;
+import enemies.zombie.Zombie;
 import flixel.FlxObject;
 
 class PlayState extends FlxState

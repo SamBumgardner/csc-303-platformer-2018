@@ -1,4 +1,4 @@
-package source.enemies.zombie;
+package enemies.zombie;
 
 import enemies.zombie.fsm.State;
 import enemies.zombie.fsm.states.WaitState;
@@ -69,14 +69,14 @@ class Zombie extends FlxSprite
 	}
 	
 	public function setWaitPath():Void{
-		this.path = new FlxPath([new FlxPoint((this.getPosition().x + 100)), new FlxPoint((this.getPosition().x))]);
+		this.path = new FlxPath([new FlxPoint((this.getPosition().x + 100), this.y), new FlxPoint((this.getPosition().x), this.y)]);
 		this.path.speed = MAX_WALK_SPEED;
 	}
 	
 	public function setChasePath():Void{
 		this.path.cancel();
 		this.path = new FlxPath([
-								 new FlxPoint((enemyPlayer.getPosition().x), enemyPlayer.getPosition().y + Zombie.HEIGHT)]);
+								 new FlxPoint((enemyPlayer.getPosition().x), enemyPlayer.getPosition().y + (enemyPlayer.height - Zombie.HEIGHT))]);
 		this.path.speed = Zombie.MAX_RUN_SPEED;
 	}
 	

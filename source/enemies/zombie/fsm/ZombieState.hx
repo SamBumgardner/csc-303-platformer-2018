@@ -1,6 +1,6 @@
 package enemies.zombie.fsm;
 
-import source.enemies.zombie.Zombie;
+import enemies.zombie.Zombie;
 import enemies.zombie.fsm.State;
 
 /**

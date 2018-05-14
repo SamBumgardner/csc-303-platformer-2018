@@ -1,7 +1,7 @@
 package enemies.zombie.fsm.states;
 
 import enemies.zombie.fsm.ZombieState;
-import source.enemies.zombie.Zombie;
+import enemies.zombie.Zombie;
 import flixel.FlxObject;
 import flixel.util.FlxColor;
 
@@ -27,7 +27,7 @@ class FallState extends ZombieState
 			}	
 			return 3; // ZombieStates.FALL;
 		} else {
-			//zombie.path.restart();
+			zombie.setWaitPath();
 			return 0; // ZombieStates.WAIT;
 		}
 	}

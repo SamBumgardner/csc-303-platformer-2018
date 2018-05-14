@@ -1,6 +1,6 @@
 package enemies.zombie.fsm.states;
 
-import source.enemies.zombie.Zombie;
+import enemies.zombie.Zombie;
 import enemies.zombie.fsm.ZombieState;
 import flixel.FlxObject;
 import flixel.util.FlxColor;

@@ -2,7 +2,7 @@ package enemies.zombie.fsm.states;
 
 import flixel.FlxObject;
 import enemies.zombie.fsm.ZombieState;
-import source.enemies.zombie.Zombie;
+import enemies.zombie.Zombie;
 
 /**
  * ...

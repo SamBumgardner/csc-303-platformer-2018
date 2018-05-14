@@ -1,7 +1,7 @@
 package enemies.zombie.fsm.states;
 
 import enemies.zombie.fsm.ZombieState;
-import source.enemies.zombie.Zombie;
+import enemies.zombie.Zombie;
 import flixel.util.FlxPath;
 import states.PlayState;
 import flixel.math.FlxPoint;
