@@ -33,7 +33,7 @@ class Zombie extends FlxSprite
 	public static var MAX_WALK_SPEED(default, never):Float = 75;
 	public static var MAX_RUN_SPEED(default, never):Float = 100;
 	
-	public var chasingDistance:Int = Zombie.LENGTH + 20;
+	public var chasingDistance:Int = Zombie.LENGTH + 30;
 	public var enemyPlayer:Player;
 	
 	private var state:State;
@@ -50,32 +50,33 @@ class Zombie extends FlxSprite
 		
 		makeGraphic(20, 20, FlxColor.GREEN, false);
 		
+		setWaitPath();
+		
 		states[ZombieStates.WAIT] = new WaitState(this);
 		states[ZombieStates.CHASE] = new ChaseState(this);
 		states[ZombieStates.ATTACK] = new AttackState(this);
 		states[ZombieStates.FALL] = new FallState(this);
 		
 		state = states[ZombieStates.WAIT];
-		
-		setWaitPath();
 	}
 	
-	override public function update(elapsed:Float){
-		super.update(elapsed);
-		
+	override public function update(elapsed:Float){		
 		var newState = state.update();
 		
 		state = states[newState];
+		
+		super.update(elapsed);
 	}
 	
 	public function setWaitPath():Void{
-		this.path = new FlxPath([new FlxPoint((this.getPosition().x + 100), (this.getPosition().y)), new FlxPoint((this.getPosition().x), (this.getPosition().y))]);
+		this.path = new FlxPath([new FlxPoint((this.getPosition().x + 100)), new FlxPoint((this.getPosition().x))]);
 		this.path.speed = MAX_WALK_SPEED;
 	}
 	
 	public function setChasePath():Void{
-		this.path = new FlxPath([new FlxPoint(this.getPosition().x, this.getPosition().y),
-								 new FlxPoint((enemyPlayer.getPosition().x), PlayState.GROUND_START_Y - (Zombie.HEIGHT / 2))]);
+		this.path.cancel();
+		this.path = new FlxPath([
+								 new FlxPoint((enemyPlayer.getPosition().x), enemyPlayer.getPosition().y + Zombie.HEIGHT)]);
 		this.path.speed = Zombie.MAX_RUN_SPEED;
 	}
 	

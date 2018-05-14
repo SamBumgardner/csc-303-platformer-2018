@@ -24,10 +24,7 @@ class ChaseState extends ZombieState
 	override public function update():Int 
 	{
 		zombie.setChasePath();
-		
-		if (!zombie.path.active){
-			zombie.path.start();	
-		}
+		zombie.path.start();	
 		
 		if (!zombie.isChasingDistanceFromPlayer()){
 			zombie.setWaitPath();

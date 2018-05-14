@@ -23,12 +23,16 @@ class WaitState extends GroundState
 	}
 	
 	public override function update():Int{
-		if (zombie.isChasingDistanceFromPlayer()){
-			return 1;// ZombieStates.CHASE;
+		if (!zombie.path.active){
+			zombie.path.start();
 		}
 		
-		if (!zombie.path.active){ // Should ideally test if the zombie is on the ground too, but that doesn't work
-			zombie.path.start();
+		if (!zombie.isTouching(FlxObject.DOWN)){
+			return 3; // ZombieStates.FALL;
+		}
+		
+		if (zombie.isChasingDistanceFromPlayer()){
+			return 1;// ZombieStates.CHASE;
 		}
 		
 		return 0;// ZombieStates.WAIT;

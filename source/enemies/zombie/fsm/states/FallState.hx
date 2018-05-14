@@ -22,14 +22,14 @@ class FallState extends ZombieState
 	override public function update():Int 
 	{
 		if (!zombie.isTouching(FlxObject.DOWN)){
-			trace("no change");
-			return ZombieStates.NO_CHANGE;
+			if (zombie.path.active){
+				zombie.path.cancel();
+			}	
+			return 3; // ZombieStates.FALL;
 		} else {
-			trace("wait");
-			return ZombieStates.WAIT;
+			//zombie.path.restart();
+			return 0; // ZombieStates.WAIT;
 		}
-		
-		return ZombieStates.NO_CHANGE;
 	}
 	
 }

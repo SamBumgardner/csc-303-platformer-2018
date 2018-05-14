@@ -26,7 +26,7 @@ class PlayState extends FlxState
 	
 	private static var ZOMBIE_COUNT(default, never):Int = 4;
 	private static var ZOMBIE_START_X(default, never):Array<Float> = [HERO_START_X + 50, HERO_START_X + 100, HERO_START_X + 150, HERO_START_X + 200];
-	private static var ZOMBIE_START_Y(default, never):Array<Float> = [GROUND_START_Y - (Zombie.HEIGHT / 2), GROUND_START_Y -(Zombie.HEIGHT / 2), GROUND_START_Y - (Zombie.HEIGHT / 2), GROUND_START_Y - (Zombie.HEIGHT / 2)];
+	private static var ZOMBIE_START_Y(default, never):Array<Float> = [GROUND_START_Y - 100, GROUND_START_Y -(Zombie.HEIGHT), GROUND_START_Y - (Zombie.HEIGHT), GROUND_START_Y - (Zombie.HEIGHT / 2)];
 	
 	public static var player:Player;
 	private var groundGroup:FlxTypedGroup<Ground>;
