@@ -1,10 +1,10 @@
 package states;
 
+import flixel.FlxObject;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.FlxState;
-import flixel.addons.editors.ogmo.FlxOgmoLoader;
+import flixel.addons.editors.ogmo.FlxOgmo3Loader;
 import flixel.tile.FlxTilemap;
 import player.Player;
 
@@ -12,10 +12,10 @@ import player.Player;
  * ...
  * @author Samuel Bumgardner
  */
-class OgmoLoadedState extends FlxState
+class Ogmo3LoadedState extends FlxState
 {
 	private var player:Player;
-	private var levelLoader:FlxOgmoLoader;
+	private var levelLoader:FlxOgmo3Loader;
 	private var map:FlxTilemap;
 	
 	override public function create():Void {
@@ -42,20 +42,22 @@ class OgmoLoadedState extends FlxState
 	 * 
 	 */
 	private function setUpLevel():Void {
-		levelLoader = new FlxOgmoLoader(AssetPaths.brick_land__oel);
+		levelLoader = new FlxOgmo3Loader(AssetPaths.csc_303_platformer_2018__ogmo, 
+			AssetPaths.ogmo3_brickland__json);
 		
-		map = levelLoader.loadTilemap(AssetPaths.Brick__png, 32, 32, "solid_obstacles");
+		FlxG.worldBounds.setSize(
+			levelLoader.getLevelValue("width"), levelLoader.getLevelValue("height"));
+		
+		map = levelLoader.loadTilemap(AssetPaths.Brick__png, "terrain");
 		map.setTileProperties(1, FlxObject.ANY);
 		
 		levelLoader.loadEntities(placeEntities, "entities");
 	}
 	
-	private function placeEntities(entityName:String, entityData:Xml):Void {
-		var x:Int = Std.parseInt(entityData.get("x"));
-		var y:Int = Std.parseInt(entityData.get("y"));
-		if (entityName == "player") {
-			player.x = x;
-			player.y = y;
+	private function placeEntities(entityData:EntityData):Void {
+		if (entityData.name == "Player") {
+			player.x = entityData.x - entityData.originX + Player.OFFSET_X;
+			player.y = entityData.y - entityData.originY + Player.OFFSET_Y;
 		}
 	}
 	
@@ -69,10 +71,10 @@ class OgmoLoadedState extends FlxState
 
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		FlxG.collide(map, player);
+		FlxG.collide(player, map);
 		
 		if (FlxG.keys.justPressed.N) {
-			FlxG.switchState(new Ogmo3LoadedState());
+			FlxG.switchState(new PlayState());
 		}
 	}
 }

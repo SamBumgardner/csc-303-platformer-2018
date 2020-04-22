@@ -1,5 +1,6 @@
 package player;
 
+import flixel.FlxObject;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -75,7 +76,10 @@ class Player extends FlxSprite
 		states[PlayerStates.DOUBLE] = new DoubleJumpState(this);
 		states[PlayerStates.FALL] = new FallState(this);
 		states[PlayerStates.CROUCH] = new CrouchState(this);
-		
+
+		// Lets Player start in a standing state if already colliding with the ground.
+		touching = FlxObject.DOWN;
+
 		state = states[PlayerStates.STAND];
 		state.transitionIn();
 	}
